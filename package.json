@@ -1,6 +1,6 @@
 {
 	"name": "active-win",
-	"version": "7.1.0",
+	"version": "7.2.0",
 	"description": "Get metadata about the active window (title, id, bounds, owner, URL, etc). Works on macOS, Linux, Windows.",
 	"license": "MIT",
 	"repository": "sindresorhus/active-win",
@@ -10,16 +10,21 @@
 		"email": "sindresorhus@gmail.com",
 		"url": "https://sindresorhus.com"
 	},
+	"bin": {
+		"active-win": "cli.js"
+	},
 	"engines": {
 		"node": ">=10"
 	},
 	"scripts": {
-		"test": "xo && npm run build && ava && tsd",
+		"test-mac": "xo && npm run build && ava && tsd",
 		"test-ci": "xo && tsd",
-		"build": "swift build --configuration=release && mv .build/release/active-win main",
-		"prepare": "npm run build"
+		"build-mac": "swift build --configuration=release && mv .build/release/active-win main",
+		"prepare-mac": "npm run build",
+		"cli": "node cli.js"
 	},
 	"files": [
+		"cli.js",
 		"index.js",
 		"index.d.ts",
 		"lib",
@@ -57,7 +62,8 @@
 	"devDependencies": {
 		"ava": "^2.4.0",
 		"tsd": "^0.14.0",
-		"xo": "^0.38.2"
+		"xo": "^0.38.2",
+		"meow": "^3.7.0"
 	},
 	"optionalDependencies": {
 		"ffi-napi": "^4.0.3",
