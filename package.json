@@ -10,9 +10,6 @@
 		"email": "sindresorhus@gmail.com",
 		"url": "https://sindresorhus.com"
 	},
-	"bin": {
-		"active-win": "cli.js"
-	},
 	"engines": {
 		"node": ">=10"
 	},
