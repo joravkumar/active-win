@@ -25,7 +25,9 @@
 		"index.d.ts",
 		"lib",
 		"main",
-		"geturl.exe"
+		"geturl.exe",
+		"get_url.py",
+		"post-install.sh"
 	],
 	"keywords": [
 		"macos",
