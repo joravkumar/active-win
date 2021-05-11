@@ -33,4 +33,4 @@ if (prop) {
 	process.exit();
 }
 
-console.log(`Title: ${ret.title}\nID: ${ret.id}\nApp: ${ret.app}\nPID: ${ret.pid}\nURL: ${ret.url}\nBrowser: ${ret.browser}`);
+console.log(`Title: ${ret.title}\nID: ${ret.id}\nApp: ${ret.app}\nPID: ${ret.pid}\nURL: ${ret.url}\nBrowser: ${ret.browser}\nMemory: ${ret.memoryUsage}`);
