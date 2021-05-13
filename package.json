@@ -25,8 +25,7 @@
 		"index.d.ts",
 		"lib",
 		"main",
-		"geturl.exe",
-		"get_url.py",
+		"platform",
 		"post-install.sh"
 	],
 	"keywords": [

@@ -19,18 +19,19 @@ const cli = meow(`
 	  Terminal
 `);
 
-const ret = activeWin.sync();
-const validProps = ['title', 'id', 'app', 'pid'];
-const prop = cli.input[0];
+activeWin().then((ret) => {
+	const validProps = ['title', 'id', 'app', 'path', 'url', 'browser'];
+	const prop = cli.input[0];
 
-if (prop) {
-	if (validProps.indexOf(prop) === -1) {
-		console.error(`Specify a valid property: ${validProps.join(', ')}`);
-		process.exit(1);
+	if (prop) {
+		if (validProps.indexOf(prop) === -1) {
+			console.error(`Specify a valid property: ${validProps.join(', ')}`);
+			process.exit(1);
+		}
+
+		console.log(ret[prop]);
+		process.exit();
 	}
 
-	console.log(ret[prop]);
-	process.exit();
-}
-
-console.log(`Title: ${ret.title}\nID: ${ret.id}\nApp: ${ret.app}\nPID: ${ret.pid}\nURL: ${ret.url}\nBrowser: ${ret.browser}\nMemory: ${ret.memoryUsage}`);
+	console.log(ret);
+});
