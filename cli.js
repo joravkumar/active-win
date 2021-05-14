@@ -19,19 +19,32 @@ const cli = meow(`
 	  Terminal
 `);
 
-activeWin().then((ret) => {
-	const validProps = ['title', 'id', 'app', 'path', 'url', 'browser'];
-	const prop = cli.input[0];
 
-	if (prop) {
-		if (validProps.indexOf(prop) === -1) {
-			console.error(`Specify a valid property: ${validProps.join(', ')}`);
-			process.exit(1);
+function main() {
+	activeWin().then((ret) => {
+		const validProps = ['title', 'id', 'app', 'path', 'url', 'browser'];
+		const prop = cli.input[0];
+
+		if (prop) {
+			if (validProps.indexOf(prop) === -1) {
+				console.error(`Specify a valid property: ${validProps.join(', ')}`);
+				process.exit(1);
+			}
+
+			console.log(ret[prop]);
+			process.exit();
 		}
 
-		console.log(ret[prop]);
-		process.exit();
-	}
+		console.log(ret);
+	});
+}
 
-	console.log(ret);
-});
+function doLoop() {
+	activeWin().then( (result) => {
+		console.log(result);
+		setTimeout(doLoop, 3000);
+	});
+}
+
+main();
+doLoop();

@@ -121,6 +121,12 @@ bFinished := 0
 try {
 	sURL := GetActiveBrowserURL()
 	WinGetClass, sClass, A
+
+	If ((InStr(ModernBrowsers, sClass) == 0) and (InStr(LegacyBrowsers, sClass) == 0)) {
+		sClass := ""
+		sURL := ""
+	}
+
 } catch e {
 	sURL := ""
 	sClass := ""
