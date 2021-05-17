@@ -1,4 +1,3 @@
-import time
 import pyatspi
 
 # Find the desired app on the desktop
@@ -92,4 +91,4 @@ if __name__ == "__main__":
         url = ""
     
     # Print in JSON format to stdout
-    print '{{"browser":"{}", "url":"{}"}}'.format(browser, url)
+    print('{{"browser":"{}", "url":"{}"}}'.format(browser, url))
