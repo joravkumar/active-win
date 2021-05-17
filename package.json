@@ -14,7 +14,7 @@
 		"node": ">=10"
 	},
 	"scripts": {
-		"test-mac": "xo && npm run build && ava && tsd",
+		"test-mac": "xo && npm run build-mac && ava && tsd",
 		"test-ci": "xo && tsd",
 		"build-mac": "swift build --configuration=release && mv .build/release/active-win main",
 		"prepare-mac": "npm run build-mac",
