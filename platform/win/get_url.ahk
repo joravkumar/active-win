@@ -80,7 +80,7 @@ GetAddressBar(accObj) {
 }
 
 IsURL(sURL) {
-	Return RegExMatch(sURL, "^(?<Protocol>https?|ftp)://(?<Domain>(?:[\w-]+\.)+\w\w+)(?::(?<Port>\d+))?/?(?<Path>(?:[^:/?# ]*/?)+)(?:\?(?<Query>[^#]+)?)?(?:\#(?<Hash>.+)?)?$")
+	Try Return RegExMatch(sURL, "^(?<Protocol>https?|ftp)://(?<Domain>(?:[\w-]+\.)+\w\w+)(?::(?<Port>\d+))?/?(?<Path>(?:[^:/?# ]*/?)+)(?:\?(?<Query>[^#]+)?)?(?:\#(?<Hash>.+)?)?$")
 }
 
 ; The code below is part of the Acc.ahk Standard Library by Sean (updated by jethrow)
@@ -114,6 +114,12 @@ Acc_Children(Acc) {
 		} Else
 			ErrorLevel := "AccessibleChildren DllCall Failed"
 	}
+}
+
+OnError("HandleError")
+
+HandleError(exception) {
+	return true
 }
 
 bFinished := 0
