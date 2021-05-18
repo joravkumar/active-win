@@ -1,6 +1,7 @@
 ﻿#SingleInstance off
 #NoTrayIcon
 #ErrorStdOut
+#WarnContinuableException Off
 #Persistent
 
 ModernBrowsers := "ApplicationFrameWindow,Chrome_WidgetWin_0,Chrome_WidgetWin_1,Maxthon3Cls_MainFrm,MozillaWindowClass,Slimjet_WidgetWin_1"
