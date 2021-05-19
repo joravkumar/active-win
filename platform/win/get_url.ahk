@@ -132,17 +132,17 @@ HandleError(exception) {
 }
 
 try {
-	sURL := GetActiveBrowserURL()
-	WinGetClass, sClass, A
+	gURL := GetActiveBrowserURL()
+	WinGetClass, gClass, A
 
-	If ((InStr(ModernBrowsers, sClass) == 0) and (InStr(LegacyBrowsers, sClass) == 0)) {
-		sClass := ""
-		sURL := ""
+	If ((InStr(ModernBrowsers, gClass) == 0) and (InStr(LegacyBrowsers, gClass) == 0)) {
+		gClass := ""
+		gURL := ""
 	}
 
 } catch e {
-	sURL := ""
-	sClass := ""
+	gURL := ""
+	gClass := ""
 }
 
 bFinished := 1
