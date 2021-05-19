@@ -4,15 +4,18 @@
 #WarnContinuableException Off
 #Persistent
 
+bFinished := 0
+
 ModernBrowsers := "ApplicationFrameWindow,Chrome_WidgetWin_0,Chrome_WidgetWin_1,Maxthon3Cls_MainFrm,MozillaWindowClass,Slimjet_WidgetWin_1"
 LegacyBrowsers := "IEFrame,OperaWindowClass"
 
 
 GetActiveBrowserURL() {
 	global ModernBrowsers, LegacyBrowsers
-	WinGetClass, sClass, A
+	activeWndH := WinExist("A")
+	WinGetClass, sClass
 	If sClass In % ModernBrowsers
-		Return GetBrowserURL_ACC(sClass)
+		Return GetBrowserURL_ACC(activeWndH)
 	Else If sClass In % LegacyBrowsers
 		Return GetBrowserURL_DDE(sClass) ; empty string if DDE not supported (or not a browser)
 	Else
@@ -45,21 +48,16 @@ GetBrowserURL_DDE(sClass) {
 	Return sWindowInfo2
 }
 
-GetBrowserURL_ACC(sClass) {
+GetBrowserURL_ACC(hWnd) {
 	global nWindow, accAddressBar
-	If (nWindow != WinExist("ahk_class " sClass)) ; reuses accAddressBar if it's the same window
+
+	If (nWindow != hWnd) ; reuses accAddressBar if it's the same window
 	{
-		nWindow := WinExist("ahk_class " sClass)
+		nWindow := hWnd
 		accAddressBar := GetAddressBar(Acc_ObjectFromWindow(nWindow))
 	}
 	Try sURL := accAddressBar.accValue(0)
-	If (sURL == "") {
-		WinGet, nWindows, List, % "ahk_class " sClass ; In case of a nested browser window as in the old CoolNovo (TO DO: check if still needed)
-		If (nWindows > 1) {
-			accAddressBar := GetAddressBar(Acc_ObjectFromWindow(nWindows2))
-			Try sURL := accAddressBar.accValue(0)
-		}
-	}
+
 	If ((sURL != "") and (SubStr(sURL, 1, 4) != "http")) ; Modern browsers omit "http://"
 		sURL := "http://" sURL
 	If (sURL == "")
@@ -123,8 +121,6 @@ HandleError(exception) {
 	return true
 }
 
-bFinished := 0
-
 try {
 	sURL := GetActiveBrowserURL()
 	WinGetClass, sClass, A
@@ -140,3 +136,7 @@ try {
 }
 
 bFinished := 1
+
+StopScript() {
+	ExitApp, 0
+}

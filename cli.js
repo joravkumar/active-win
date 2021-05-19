@@ -42,6 +42,7 @@ function main() {
 function doLoop() {
 	activeWin().then( (result) => {
 		console.log(result);
+		// global.gc();
 		setTimeout(doLoop, 3000);
 	});
 }
