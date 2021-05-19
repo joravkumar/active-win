@@ -50,6 +50,8 @@ GetBrowserURL_DDE(sClass) {
 
 GetBrowserURL_ACC(hWnd) {
 	global nWindow, accAddressBar
+	
+	Acc_Init()
 
 	If (nWindow != hWnd) ; reuses accAddressBar if it's the same window
 	{
@@ -57,6 +59,8 @@ GetBrowserURL_ACC(hWnd) {
 		accAddressBar := GetAddressBar(Acc_ObjectFromWindow(nWindow))
 	}
 	Try sURL := accAddressBar.accValue(0)
+
+	Acc_Free()
 
 	If ((sURL != "") and (SubStr(sURL, 1, 4) != "http")) ; Modern browsers omit "http://"
 		sURL := "http://" sURL
@@ -87,14 +91,20 @@ IsURL(sURL) {
 
 Acc_Init()
 {
-	static h
+	global h
 	If Not h
 		h:=DllCall("LoadLibrary","Str","oleacc","Ptr")
 }
 
+Acc_Free()
+{
+	if h
+		DllCall("FreeLibrary", "Ptr", h)
+		h := false
+}
+
 Acc_ObjectFromWindow(hWnd, idObject = 0)
 {
-	Acc_Init()
 	If DllCall("oleacc\AccessibleObjectFromWindow", "Ptr", hWnd, "UInt", idObject&=0xFFFFFFFF, "Ptr", -VarSetCapacity(IID,16)+NumPut(idObject==0xFFFFFFF0?0x46000000000000C0:0x719B3800AA000C81,NumPut(idObject==0xFFFFFFF0?0x0000000000020400:0x11CF3C3D618736E0,IID,"Int64"),"Int64"), "Ptr*", pacc)=0
 	Return ComObjEnwrap(9,pacc,1)
 }
