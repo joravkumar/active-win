@@ -39,13 +39,16 @@ function main() {
 	});
 }
 
-function doLoop() {
-	activeWin().then( (result) => {
-		console.log(result);
-		// global.gc();
-		setTimeout(doLoop, 3000);
-	});
-}
+async function handleTracking() {
+    try {
+      	const appData = await activeWin();
+	  	console.log(appData);
+    } catch (error) {
+		console.log(error);
+    } finally {
+		//global.gc();
+      	setTimeout(handleTracking, 3000);
+    }
+};
 
-main();
-doLoop();
+handleTracking();
