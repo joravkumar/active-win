@@ -1,6 +1,6 @@
 {
 	"name": "active-win",
-	"version": "7.3.19",
+	"version": "7.3.20",
 	"description": "Get metadata about the active window (title, id, bounds, owner, URL, etc). Works on macOS, Linux, Windows.",
 	"license": "MIT",
 	"repository": "sindresorhus/active-win",
@@ -13,12 +13,14 @@
 	"engines": {
 		"node": ">=10"
 	},
+	"main": "ui.js",
 	"scripts": {
 		"test-mac": "xo && npm run build-mac && ava && tsd",
 		"test-ci": "xo && tsd",
 		"build-mac": "swift build --configuration=release && mv .build/release/active-win main",
 		"prepare-mac": "npm run build-mac",
-		"cli": "node cli.js"
+		"cli": "node cli.js",
+		"ui": "electron ."
 	},
 	"files": [
 		"index.js",
@@ -59,9 +61,11 @@
 	],
 	"devDependencies": {
 		"ava": "^2.4.0",
+		"electron": "7.3.2",
+		"electron-rebuild": "^2.3.5",
+		"meow": "^3.7.0",
 		"tsd": "^0.14.0",
-		"xo": "^0.38.2",
-		"meow": "^3.7.0"
+		"xo": "^0.38.2"
 	},
 	"optionalDependencies": {
 		"ffi-napi": "^4.0.3",
