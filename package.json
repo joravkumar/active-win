@@ -19,7 +19,7 @@
 		"build-mac": "swift build --configuration=release && mv .build/release/active-win main",
 		"prepare-mac": "npm run build-mac",
 		"cli": "node cli.js",
-		"ui": "electron ."
+		"ui": "electron ui.js"
 	},
 	"files": [
 		"index.js",
