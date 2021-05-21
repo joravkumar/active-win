@@ -1,6 +1,6 @@
 {
 	"name": "active-win",
-	"version": "7.3.20",
+	"version": "7.3.21",
 	"description": "Get metadata about the active window (title, id, bounds, owner, URL, etc). Works on macOS, Linux, Windows.",
 	"license": "MIT",
 	"repository": "sindresorhus/active-win",
@@ -13,7 +13,6 @@
 	"engines": {
 		"node": ">=10"
 	},
-	"main": "ui.js",
 	"scripts": {
 		"test-mac": "xo && npm run build-mac && ava && tsd",
 		"test-ci": "xo && tsd",
