@@ -60,7 +60,7 @@
 	],
 	"devDependencies": {
 		"ava": "^2.4.0",
-		"electron": "7.3.2",
+		"electron": "11.4.7",
 		"electron-rebuild": "^2.3.5",
 		"meow": "^3.7.0",
 		"tsd": "^0.14.0",
