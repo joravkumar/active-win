@@ -1,71 +1,33 @@
-from ast import Pass
+from logging import raiseExceptions
 import pyatspi
 import time
 import json
-import requests
-import dotenv
-from dotenv import load_dotenv
-from pathlib import Path
 from os.path import exists
-
+##############################################################################
 APP_LIST = []
-response_data = '[{"Google Chrome":"search"},{"Chromium":"search bar"},{"Firefox":"Search with Google or enter address"},{"Brave Browser":"search bar"}]'
 try:
-    env_path = ('/tmp/.env')
-    file_exists = exists(env_path)
+    # read file json file path
+    file_path = ('/tmp/.browser.json')
+    file_exists = exists(file_path)
+    # check if file is exist or not
     if file_exists:
-        load_dotenv(env_path)
-        leap_status = dotenv.get_key(env_path, 'login')
-
-        # print(leap_status)
-        if str(leap_status) == "1":
-            # print("pass")
-            dotenv.set_key(env_path, "login", ('0'))
-            API_Url = dotenv.get_key(env_path, 'path')
-            # print(API_Url)
-            try:
-                # API Call
-                url = str(API_Url)+"/api/v1/browser-access-list"
-                #url = "https://whdemo.maxicus.com/api/v1/browser-access-list"
-                response = requests.request("GET", url)
-                if("200" in str(response)):
-                    if dotenv.get_key(env_path, 'response') != None:
-                        dotenv.unset_key(env_path, "response")
-                        dotenv.set_key(env_path, "\nresponse", (response.text))
-                    else:
-                        dotenv.set_key(env_path, "\nresponse", (response.text))
-                # print(response.text)
-                # print(response)
-                # if Api Fail
-                # print(response)
-                if("200" not in str(response)):
-                    raise Exception
-            except:
-                if dotenv.get_key(env_path, 'response') != None:
-                    dotenv.unset_key(env_path, "response")
-                    dotenv.set_key(env_path, "\nresponse", (response_data))
-                else:
-                    dotenv.set_key(env_path, "\nresponse", (response_data))
-                # print("pass")
-        else:
-            if dotenv.get_key(env_path, 'response') == None:
-                # print("pass")
-                dotenv.set_key(env_path, "\nresponse", (response_data))
-
+        file = open(file_path)
+        data = json.load(file)
+        # print(data)
     else:
         raise Exception
 except:
-    APP_LIST = [("Google Chrome", "search"),
-                ("Chromium", "search bar"),
-                ("Firefox", "Search with Google or enter address"),
-                ("Brave Browser", "search bar")]
+    APP_LIST = [('Google Chrome', 'search'),
+                ('Google Chrome', 'Type a URL'),
+                ('Google Chrome', 'Address'),
+                ('Chromium', 'search bar'),
+                ('Firefox', 'Search with Google or enter address'),
+                ('Brave Browser', 'search bar')]
 else:
-    env_response = dotenv.get_key(env_path, 'response')
-    data = json.loads(env_response)
-    # print(data)
-    for i in data:
-        APP_LIST.extend(list(i.items()))
-#print(APP_LIST)
+    for item in data:
+        APP_LIST.extend(list(item.items()))
+
+# print(APP_LIST)
 ##############################################################################
 # Find the desired app on the desktop
 
